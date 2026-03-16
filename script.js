@@ -41,6 +41,10 @@ const insightOne = document.getElementById("insight-one")
 const insightTwo = document.getElementById("insight-two")
 const insightThree = document.getElementById("insight-three")
 
+// chart
+const chartCanvas = document.getElementById("category-chart")
+let categoryChart
+
 // saved data
 let transactions = JSON.parse(localStorage.getItem("transactions")) || []
 let currentFilter = "all"
@@ -237,6 +241,75 @@ function updateInsights() {
   insightThree.textContent = "latest transaction: " + latest.description + " on " + latest.date
 }
 
+// update chart
+function updateCategoryChart() {
+  const expenseOnly = transactions.filter(t => t.type === "expense")
+
+  const categoryTotals = {}
+
+  expenseOnly.forEach(t => {
+    if (!categoryTotals[t.category]) {
+      categoryTotals[t.category] = 0
+    }
+    categoryTotals[t.category] += t.amount
+  })
+
+  const labels = Object.keys(categoryTotals)
+  const data = Object.values(categoryTotals)
+
+  if (categoryChart) {
+    categoryChart.destroy()
+  }
+
+  if (labels.length === 0) {
+    categoryChart = new Chart(chartCanvas, {
+      type: "pie",
+      data: {
+        labels: ["no expense data yet"],
+        datasets: [{
+          data: [1],
+          backgroundColor: ["#94a3b8"]
+        }]
+      },
+      options: {
+        plugins: {
+          legend: {
+            position: "bottom"
+          }
+        }
+      }
+    })
+    return
+  }
+
+  categoryChart = new Chart(chartCanvas, {
+    type: "pie",
+    data: {
+      labels: labels,
+      datasets: [{
+        data: data,
+        backgroundColor: [
+          "#4f7cff",
+          "#22c55e",
+          "#ef4444",
+          "#f59e0b",
+          "#a855f7",
+          "#14b8a6",
+          "#ec4899",
+          "#8b5cf6"
+        ]
+      }]
+    },
+    options: {
+      plugins: {
+        legend: {
+          position: "bottom"
+        }
+      }
+    }
+  })
+}
+
 // render transaction list
 function renderTransactions() {
   const visibleTransactions = getVisibleTransactions()
@@ -281,6 +354,7 @@ function refreshUI() {
   updateBudgetBar()
   updateStats()
   updateInsights()
+  updateCategoryChart()
 }
 
 // add transaction

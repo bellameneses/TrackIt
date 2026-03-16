@@ -15,7 +15,7 @@
     <header class="header">
       <div>
         <h1>TrackIt</h1>
-        <p class="subtitle">simple personal finance tracker</p>
+        <p class="subtitle">track spending, manage budgets, and understand where your money goes</p>
       </div>
 
       <button id="dark-mode-btn" type="button">dark mode</button>
@@ -181,7 +181,13 @@
       <p id="insight-three"></p>
     </section>
 
-    <!-- actions -->
+    <!-- spending chart -->
+    <section class="charts">
+      <h2>spending by category</h2>
+      <canvas id="category-chart"></canvas>
+    </section>
+
+    <!-- extra actions -->
     <section class="actions">
       <h2>extra actions</h2>
       <button id="export-btn" type="button">export data</button>
@@ -189,10 +195,11 @@
     </section>
 
     <footer class="footer">
-      <p>trackit finance tracker</p>
+      <p>trackit personal finance tracker</p>
     </footer>
   </div>
 
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <script src="script.js"></script>
 </body>
 </html>
