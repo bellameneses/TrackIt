@@ -1,0 +1,198 @@
+/* reset some default browser spacing */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+/* main page style */
+body {
+    font-family: Arial, sans-serif;
+    background: #f4f7fb;
+    color: #222;
+    padding: 30px;
+}
+
+/* center the whole app */
+.container {
+    max-width: 1000px;
+    margin: auto;
+    background: white;
+    padding: 25px;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+}
+
+/* header section */
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 25px;
+}
+
+.header h1 {
+    font-size: 28px;
+}
+
+.subtitle {
+    color: #666;
+    font-size: 14px;
+}
+
+/* summary cards */
+.summary {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px,1fr));
+    gap: 15px;
+    margin-bottom: 30px;
+}
+
+.card {
+    background: #eef3ff;
+    padding: 18px;
+    border-radius: 10px;
+    text-align: center;
+}
+
+.income-card {
+    background: #e8f8ee;
+}
+
+.expense-card {
+    background: #ffecec;
+}
+
+.card h3 {
+    font-size: 14px;
+    margin-bottom: 6px;
+}
+
+.card p {
+    font-size: 20px;
+    font-weight: bold;
+}
+
+/* form area */
+.form-section {
+    margin-bottom: 30px;
+}
+
+.form-section h2 {
+    margin-bottom: 12px;
+}
+
+.form-group {
+    margin-bottom: 12px;
+}
+
+label {
+    display: block;
+    margin-bottom: 4px;
+    font-size: 14px;
+}
+
+input, select, textarea {
+    width: 100%;
+    padding: 8px;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+}
+
+/* main button */
+button {
+    padding: 10px;
+    border: none;
+    border-radius: 6px;
+    background: #4f7cff;
+    color: white;
+    cursor: pointer;
+}
+
+button:hover {
+    background: #365fd6;
+}
+
+/* filter area */
+.filter-section {
+    margin-bottom: 30px;
+}
+
+.filters {
+    display: flex;
+    gap: 10px;
+    margin-top: 10px;
+}
+
+.filter-btn {
+    background: #ddd;
+    color: #222;
+}
+
+.filter-btn:hover {
+    background: #bbb;
+}
+
+/* transaction list */
+.transactions ul {
+    list-style: none;
+    margin-top: 10px;
+}
+
+/* single transaction */
+.transactions li {
+    display: flex;
+    justify-content: space-between;
+    padding: 12px;
+    margin-bottom: 8px;
+    background: #fafafa;
+    border-left: 5px solid #ccc;
+    border-radius: 6px;
+}
+
+/* income item color */
+.transactions li.income {
+    border-left-color: #2e9b57;
+}
+
+/* expense item color */
+.transactions li.expense {
+    border-left-color: #d94b4b;
+}
+
+/* insight box */
+.insights {
+    margin-bottom: 30px;
+}
+
+.insights p {
+    background: #f1f4ff;
+    padding: 10px;
+    border-radius: 6px;
+    margin-bottom: 6px;
+}
+
+/* chart placeholder */
+.chart-placeholder {
+    background: #f6f6f6;
+    padding: 30px;
+    text-align: center;
+    border-radius: 8px;
+    margin-bottom: 30px;
+}
+
+/* action buttons */
+.actions {
+    margin-bottom: 25px;
+}
+
+.actions button {
+    margin-right: 10px;
+}
+
+/* footer */
+.footer {
+    text-align: center;
+    font-size: 13px;
+    color: #666;
+}
