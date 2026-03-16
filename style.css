@@ -446,28 +446,6 @@ body.dark .insights p {
   border: 1px solid #334155;
 }
 
-/* chart placeholder */
-.chart-placeholder {
-  background: repeating-linear-gradient(
-    45deg,
-    #f8fafc,
-    #f8fafc 12px,
-    #eef2f7 12px,
-    #eef2f7 24px
-  );
-  border: 1px solid #e5e7eb;
-  border-radius: 16px;
-  padding: 50px 20px;
-  text-align: center;
-  color: #6b7280;
-  font-weight: 600;
-}
-
-body.dark .chart-placeholder {
-  background: #1e293b;
-  border: 1px solid #334155;
-  color: #cbd5e1;
-}
 
 /* actions */
 .actions button {
