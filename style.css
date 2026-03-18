@@ -130,7 +130,6 @@ body.dark .savings-card {
 
 .card h3 {
   margin-bottom: 8px;
-  text-transform: lowercase;
   font-size: 1rem;
 }
 
@@ -163,7 +162,6 @@ body.dark .budget-section {
 
 .budget-top h2 {
   margin-bottom: 0;
-  text-transform: lowercase;
   font-size: 1.8rem;
 }
 
@@ -237,7 +235,6 @@ body.dark .mini-card {
 
 .mini-card h4 {
   margin-bottom: 8px;
-  text-transform: lowercase;
   color: #6b7280;
 }
 
@@ -276,7 +273,6 @@ body.dark .actions {
 
 h2 {
   margin-bottom: 14px;
-  text-transform: lowercase;
   font-size: 1.8rem;
 }
 
@@ -295,7 +291,6 @@ label {
   display: block;
   margin-bottom: 6px;
   font-weight: 600;
-  text-transform: lowercase;
 }
 
 input,
@@ -394,14 +389,12 @@ body.dark .transaction-item {
 .transaction-left h3 {
   font-size: 1.05rem;
   margin-bottom: 6px;
-  text-transform: lowercase;
 }
 
 .transaction-meta {
   font-size: 0.92rem;
   color: #6b7280;
   margin-bottom: 6px;
-  text-transform: lowercase;
 }
 
 body.dark .transaction-meta {
@@ -462,7 +455,6 @@ body.dark .insights p {
   text-align: center;
   color: #6b7280;
   margin-top: 16px;
-  text-transform: lowercase;
 }
 
 /* mobile */
@@ -491,4 +483,8 @@ body.dark .insights p {
   .budget-input-wrap input {
     min-width: auto;
   }
+}
+
+label {
+  text-transform: none;
 }

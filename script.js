@@ -56,6 +56,15 @@ function formatMoney(value) {
   return "$" + Number(value).toFixed(2)
 }
 
+function capitalize(word) {
+  return word.charAt(0).toUpperCase() + word.slice(1)
+}
+
+function formatDate(dateString) {
+  const date = new Date(dateString)
+  return date.toLocaleDateString()
+}
+
 // save transactions
 function saveTransactions() {
   localStorage.setItem("transactions", JSON.stringify(transactions))
@@ -75,10 +84,10 @@ function saveBudget() {
 function applyTheme() {
   if (currentTheme === "dark") {
     document.body.classList.add("dark")
-    darkModeBtn.textContent = "light mode"
+    darkModeBtn.textContent = "Light Mode"
   } else {
     document.body.classList.remove("dark")
-    darkModeBtn.textContent = "dark mode"
+    darkModeBtn.textContent = "Dark Mode"
   }
 }
 
@@ -208,7 +217,7 @@ function updateStats() {
 // update insight messages
 function updateInsights() {
   if (transactions.length === 0) {
-    insightOne.textContent = "add some transactions to see insights"
+    insightOne.textContent = "Add some transactions to see insights"
     insightTwo.textContent = ""
     insightThree.textContent = ""
     return
@@ -221,24 +230,24 @@ function updateInsights() {
   const totalExpenses = expenseOnly.reduce((sum, t) => sum + t.amount, 0)
 
   if (totalExpenses > totalIncome) {
-    insightOne.textContent = "you are spending more than you are earning right now"
+    insightOne.textContent = "You are spending more than you are earning right now"
   } else if (totalIncome > totalExpenses) {
-    insightOne.textContent = "nice, your income is higher than your expenses"
+    insightOne.textContent = "Nice, your income is higher than your expenses"
   } else {
-    insightOne.textContent = "your income and expenses are balanced right now"
+    insightOne.textContent = "Your income and expenses are balanced right now"
   }
 
   if (expenseOnly.length > 0) {
     const biggestExpense = expenseOnly.reduce((max, t) =>
       t.amount > max.amount ? t : max
     )
-    insightTwo.textContent = "your biggest expense was " + biggestExpense.description + " at " + formatMoney(biggestExpense.amount)
+    insightTwo.textContent = "Your biggest expense was " + biggestExpense.description + " at " + formatMoney(biggestExpense.amount)
   } else {
-    insightTwo.textContent = "you have no expenses yet"
+    insightTwo.textContent = "You have no expenses yet"
   }
 
   const latest = [...transactions].sort((a, b) => new Date(b.date) - new Date(a.date))[0]
-  insightThree.textContent = "latest transaction: " + latest.description + " on " + latest.date
+  insightThree.textContent = "Latest transaction: " + latest.description + " on " + latest.date
 }
 
 // update chart
@@ -254,7 +263,7 @@ function updateCategoryChart() {
     categoryTotals[t.category] += t.amount
   })
 
-  const labels = Object.keys(categoryTotals)
+  const labels = Object.keys(categoryTotals).map(category => capitalize(category))
   const data = Object.values(categoryTotals)
 
   if (categoryChart) {
@@ -333,13 +342,13 @@ function renderTransactions() {
     li.innerHTML = `
       <div class="transaction-left">
         <h3>${t.description}</h3>
-        <p class="transaction-meta">${t.category} • ${t.type} • ${t.date}</p>
+        <p class="transaction-meta">${capitalize(t.category)} • ${capitalize(t.type)} • ${formatDate(t.date)}</p> 
         <p class="transaction-note">${t.notes ? t.notes : "no note"}</p>
       </div>
 
       <div class="transaction-right">
         <span class="transaction-amount">${formatMoney(t.amount)}</span>
-        <button type="button" onclick="deleteTransaction(${t.id})" class="danger-btn">delete</button>
+        <button type="button" onclick="deleteTransaction(${t.id})" class="danger-btn">Delete</button>
       </div>
     `
 
@@ -364,7 +373,9 @@ form.addEventListener("submit", function (e) {
   const description = descriptionInput.value.trim()
   const amount = parseFloat(amountInput.value)
   const type = typeInput.value
-  const category = categoryInput.value
+  const category = categoryInput.value === "custom"
+    ? customInput.value.trim()
+    : categoryInput.value
   const date = dateInput.value
   const notes = notesInput.value.trim()
 
@@ -387,7 +398,23 @@ form.addEventListener("submit", function (e) {
   saveTransactions()
   refreshUI()
   form.reset()
+  customInput.style.display = "none"
+  customInput.required = false
 })
+
+// other for category
+const categorySelect = document.getElementById("category");
+const customInput = document.getElementById("custom-category");
+
+categorySelect.addEventListener("change", () => {
+  if (categorySelect.value === "custom") {
+    customInput.style.display = "block";
+    customInput.required = true;
+  } else {
+    customInput.style.display = "none";
+    customInput.required = false;
+  }
+});
 
 // save monthly budget
 saveBudgetBtn.addEventListener("click", function () {

@@ -15,31 +15,31 @@
     <header class="header">
       <div>
         <h1>TrackIt</h1>
-        <p class="subtitle">track spending, manage budgets, and understand where your money goes</p>
+        <p class="subtitle">Track spending, manage budgets, and understand where your money goes.</p>
       </div>
 
-      <button id="dark-mode-btn" type="button">dark mode</button>
+      <button id="dark-mode-btn" type="button">Dark Mode</button>
     </header>
 
     <!-- summary cards -->
     <section class="summary">
       <div class="card">
-        <h3>balance</h3>
+        <h3>Balance</h3>
         <p id="balance">$0.00</p>
       </div>
 
       <div class="card income-card">
-        <h3>income</h3>
+        <h3>Income</h3>
         <p id="income">$0.00</p>
       </div>
 
       <div class="card expense-card">
-        <h3>expenses</h3>
+        <h3>Expenses</h3>
         <p id="expenses">$0.00</p>
       </div>
 
       <div class="card savings-card">
-        <h3>savings</h3>
+        <h3>Savings</h3>
         <p id="savings">$0.00</p>
       </div>
     </section>
@@ -47,11 +47,11 @@
     <!-- monthly budget -->
     <section class="budget-section">
       <div class="budget-top">
-        <h2>monthly budget</h2>
+        <h2>Monthly Budget</h2>
 
         <div class="budget-input-wrap">
-          <input type="number" id="budget-input" placeholder="set monthly budget">
-          <button id="save-budget-btn" type="button">save budget</button>
+          <input type="number" id="budget-input" placeholder="Set monthly budget">
+          <button id="save-budget-btn" type="button">Save Budget</button>
         </div>
       </div>
 
@@ -66,99 +66,102 @@
     <!-- extra stats -->
     <section class="mini-stats">
       <div class="mini-card">
-        <h4>transactions</h4>
+        <h4>Transactions</h4>
         <p id="transaction-count">0</p>
       </div>
 
       <div class="mini-card">
-        <h4>biggest expense</h4>
+        <h4>Biggest Expense</h4>
         <p id="largest-expense">$0.00</p>
       </div>
 
       <div class="mini-card">
-        <h4>top category</h4>
-        <p id="top-category">none</p>
+        <h4>Top Category</h4>
+        <p id="top-category">None</p>
       </div>
     </section>
 
     <!-- add transaction form -->
     <section class="form-section">
-      <h2>add transaction</h2>
+      <h2>Add Transaction</h2>
 
       <form id="transaction-form">
         <div class="form-group">
-          <label for="description">description</label>
+          <label for="description">Description</label>
           <input type="text" id="description" placeholder="ex. groceries" required>
         </div>
 
         <div class="form-row">
           <div class="form-group">
-            <label for="amount">amount</label>
+            <label for="amount">Amount</label>
             <input type="number" id="amount" placeholder="0.00" step="0.01" required>
           </div>
 
           <div class="form-group">
-            <label for="type">type</label>
+            <label for="type">Type</label>
             <select id="type" required>
-              <option value="">select</option>
-              <option value="income">income</option>
-              <option value="expense">expense</option>
+              <option value="">Select</option>
+              <option value="income">Income</option>
+              <option value="expense">Expense</option>
             </select>
           </div>
         </div>
 
         <div class="form-row">
           <div class="form-group">
-            <label for="category">category</label>
+            <label for="category">Category</label>
             <select id="category" required>
-              <option value="">select</option>
-              <option value="salary">salary</option>
-              <option value="food">food</option>
-              <option value="transport">transport</option>
-              <option value="shopping">shopping</option>
-              <option value="bills">bills</option>
-              <option value="entertainment">entertainment</option>
-              <option value="health">health</option>
-              <option value="other">other</option>
+              <option value="">Select</option>
+              <option value="salary">Salary</option>
+              <option value="food">Food</option>
+              <option value="transport">Transport</option>
+              <option value="shopping">Shopping</option>
+              <option value="bills">Bills</option>
+              <option value="entertainment">Entertainment</option>
+              <option value="health">Health</option>
+              <option value="other">Other</option>
+              <option value="custom">+ Add custom</option>
             </select>
+        
+            <input type="text" id="custom-category" placeholder="Enter category" style="display:none; margin-top:8px;">
           </div>
 
           <div class="form-group">
-            <label for="date">date</label>
+            <label for="date">Date</label>
             <input type="date" id="date" required>
           </div>
         </div>
 
         <div class="form-group">
-          <label for="notes">notes</label>
-          <textarea id="notes" rows="3" placeholder="optional note"></textarea>
+          <label for="notes">Notes</label>
+          <textarea id="notes" rows="3" placeholder="Optional Note"></textarea>
         </div>
 
-        <button type="submit">add transaction</button>
+        <button type="submit">Add Transaction</button>
       </form>
     </section>
 
     <!-- filters -->
     <section class="filter-section">
-      <h2>filters</h2>
+      <h2>Filters</h2>
 
       <div class="form-group">
-        <input type="text" id="search" placeholder="search transactions">
+        <input type="text" id="search" placeholder="Search Transactions">
       </div>
 
       <div class="filters">
-        <button class="filter-btn active" data-filter="all" type="button">all</button>
-        <button class="filter-btn" data-filter="income" type="button">income</button>
-        <button class="filter-btn" data-filter="expense" type="button">expense</button>
+        <button class="filter-btn active" data-filter="all" type="button">All</button>
+        <button class="filter-btn" data-filter="income" type="button">Income</button>
+        <button class="filter-btn" data-filter="expense" type="button">Expense</button>
       </div>
 
       <div class="form-group">
-        <label for="sort">sort by</label>
+        <label for="sort">Sort By</label>
         <select id="sort">
-          <option value="newest">newest</option>
-          <option value="oldest">oldest</option>
-          <option value="highest">highest amount</option>
-          <option value="lowest">lowest amount</option>
+          <option value="newest">Newest</option>
+          <option value="oldest">Oldest</option>
+          <option value="highest">Highest amount</option>
+          <option value="lowest">Lowest amount</option>
         </select>
       </div>
     </section>
@@ -166,8 +169,8 @@
     <!-- transaction history -->
     <section class="transactions">
       <div class="section-top">
-        <h2>transaction history</h2>
-        <button id="clear-btn" type="button" class="danger-btn">clear all</button>
+        <h2>Transaction History</h2>
+        <button id="clear-btn" type="button" class="danger-btn">Clear All</button>
       </div>
 
       <ul id="transaction-list"></ul>
@@ -175,27 +178,27 @@
 
     <!-- insights -->
     <section class="insights">
-      <h2>insights</h2>
-      <p id="insight-one">add some transactions to see insights</p>
+      <h2>Insights</h2>
+      <p id="insight-one">Add some transactions to see insights</p>
       <p id="insight-two"></p>
       <p id="insight-three"></p>
     </section>
 
     <!-- spending chart -->
     <section class="charts">
-      <h2>spending by category</h2>
+      <h2>Spending By Category</h2>
       <canvas id="category-chart"></canvas>
     </section>
 
     <!-- extra actions -->
     <section class="actions">
-      <h2>extra actions</h2>
-      <button id="export-btn" type="button">export data</button>
-      <button id="reset-btn" type="button" class="danger-btn">reset app</button>
+      <h2>Extra Actions</h2>
+      <button id="export-btn" type="button">Export Data</button>
+      <button id="reset-btn" type="button" class="danger-btn">Reset App</button>
     </section>
 
     <footer class="footer">
-      <p>trackit personal finance tracker</p>
+      <p>TrackIt Personal Finance Tracker</p>
     </footer>
   </div>
 
