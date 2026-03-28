@@ -440,7 +440,7 @@ if (saveBudgetBtn) {
 
     monthlyBudget = value
     saveBudget()
-    updateBudgetBar()
+    refreshUI()
   })
 }
 

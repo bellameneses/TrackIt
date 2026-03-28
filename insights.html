@@ -1,23 +1,23 @@
 <!DOCTYPE html>
 <html lang="en">
 
-<nav class="nav">
-    <a href="index.html">Home</a>
-    <a href="insights.html">Insights</a>
-    <a href="settings.html">Settings</a>
-</nav>
-
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Insights - TrackIt</title>
     <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
-
     <div class="container">
+        <nav class="nav">
+            <a href="index.html">Home</a>
+            <a href="insights.html">Insights</a>
+            <a href="settings.html">Settings</a>
+        </nav>
+
         <h1>Insights</h1>
-        <!-- insights -->
+
         <section class="insights">
             <h2>Insights</h2>
             <p id="insight-one">Add some transactions to see insights</p>
@@ -25,7 +25,6 @@
             <p id="insight-three"></p>
         </section>
 
-        <!-- spending chart -->
         <section class="charts">
             <h2>Spending By Category</h2>
             <canvas id="category-chart"></canvas>
@@ -36,7 +35,6 @@
 
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="script.js"></script>
-
 </body>
 
 </html>
