@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<nav class="nav">
+    <a href="index.html">Home</a>
+    <a href="insights.html">Insights</a>
+    <a href="settings.html">Settings</a>
+</nav>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Settings - TrackIt</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <div class="container">
+        <h1>Settings</h1>
+
+        <section class="actions">
+            <h2>Appearance</h2>
+            <button id="dark-mode-btn" type="button">Dark Mode</button>
+        </section>
+
+        <section class="budget-section">
+            <h2>Budget</h2>
+            <div class="budget-input-wrap">
+                <input type="number" id="budget-input" placeholder="Set monthly budget">
+                <button id="save-budget-btn" type="button">Save Budget</button>
+            </div>
+            <div class="budget-bar-wrap">
+                <div class="budget-bar">
+                    <div id="budget-progress"></div>
+                </div>
+                <p id="budget-text">$0.00 of $0.00 used</p>
+            </div>
+        </section>
+
+        <section class="actions">
+            <h2>Data</h2>
+            <button id="export-btn" type="button">Export Data</button>
+            <button id="reset-btn" type="button" class="danger-btn">Reset App</button>
+        </section>
+
+        <a href="index.html">← Back to Home</a>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="script.js"></script>
+</body>
+
+</html>

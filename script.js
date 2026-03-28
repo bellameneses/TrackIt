@@ -84,17 +84,17 @@ function saveBudget() {
 function applyTheme() {
   if (currentTheme === "dark") {
     document.body.classList.add("dark")
-    darkModeBtn.textContent = "Light Mode"
+    if (darkModeBtn) darkModeBtn.textContent = "Light Mode"
   } else {
     document.body.classList.remove("dark")
-    darkModeBtn.textContent = "Dark Mode"
+    if (darkModeBtn) darkModeBtn.textContent = "Dark Mode"
   }
 }
 
 // get visible transactions after search filter and sort
 function getVisibleTransactions() {
   let visible = [...transactions]
-  const searchValue = searchInput.value.trim().toLowerCase()
+  const searchValue = searchInput ? searchInput.value.trim().toLowerCase() : ""
 
   if (currentFilter !== "all") {
     visible = visible.filter(t => t.type === currentFilter)
@@ -108,19 +108,21 @@ function getVisibleTransactions() {
     )
   }
 
-  if (sortInput.value === "newest") {
+  const sortValue = sortInput ? sortInput.value : "newest"
+
+  if (sortValue === "newest") {
     visible.sort((a, b) => new Date(b.date) - new Date(a.date))
   }
 
-  if (sortInput.value === "oldest") {
+  if (sortValue === "oldest") {
     visible.sort((a, b) => new Date(a.date) - new Date(b.date))
   }
 
-  if (sortInput.value === "highest") {
+  if (sortValue === "highest") {
     visible.sort((a, b) => b.amount - a.amount)
   }
 
-  if (sortInput.value === "lowest") {
+  if (sortValue === "lowest") {
     visible.sort((a, b) => a.amount - b.amount)
   }
 
@@ -357,78 +359,90 @@ function renderTransactions() {
 }
 
 // refresh the whole page view
+// refresh the whole page view
 function refreshUI() {
-  renderTransactions()
-  updateSummary()
-  updateBudgetBar()
-  updateStats()
-  updateInsights()
-  updateCategoryChart()
+  if (transactionList && searchInput && sortInput) renderTransactions()
+  if (balanceText && incomeText && expensesText && savingsText) updateSummary()
+  if (budgetProgress && budgetText && budgetInput) updateBudgetBar()
+  if (transactionCountText && largestExpenseText && topCategoryText) updateStats()
+  if (insightOne && insightTwo && insightThree) updateInsights()
+  if (chartCanvas) updateCategoryChart()
 }
 
 // add transaction
-form.addEventListener("submit", function (e) {
-  e.preventDefault()
+if (form) {
+  form.addEventListener("submit", function (e) {
+    e.preventDefault()
 
-  const description = descriptionInput.value.trim()
-  const amount = parseFloat(amountInput.value)
-  const type = typeInput.value
-  const category = categoryInput.value === "custom"
-    ? customInput.value.trim()
-    : categoryInput.value
-  const date = dateInput.value
-  const notes = notesInput.value.trim()
+    const description = descriptionInput.value.trim()
+    const amount = parseFloat(amountInput.value)
+    const type = typeInput.value
+    const category = categoryInput.value === "custom"
+      ? customInput.value.trim()
+      : categoryInput.value
+    const date = dateInput.value
+    const notes = notesInput.value.trim()
 
-  if (!description || isNaN(amount) || amount <= 0 || !type || !category || !date) {
-    alert("please fill in all required fields properly")
-    return
-  }
+    if (!description || isNaN(amount) || amount <= 0 || !type || !category || !date) {
+      alert("please fill in all required fields properly")
+      return
+    }
 
-  const newTransaction = {
-    id: Date.now(),
-    description,
-    amount,
-    type,
-    category,
-    date,
-    notes
-  }
+    const newTransaction = {
+      id: Date.now(),
+      description,
+      amount,
+      type,
+      category,
+      date,
+      notes
+    }
 
-  transactions.push(newTransaction)
-  saveTransactions()
-  refreshUI()
-  form.reset()
-  customInput.style.display = "none"
-  customInput.required = false
-})
+    transactions.push(newTransaction)
+    saveTransactions()
+    refreshUI()
+    form.reset()
+
+    if (customInput) {
+      customInput.style.display = "none"
+      customInput.required = false
+      customInput.value = ""
+    }
+  })
+}
 
 // other for category
-const categorySelect = document.getElementById("category");
-const customInput = document.getElementById("custom-category");
+const categorySelect = document.getElementById("category")
+const customInput = document.getElementById("custom-category")
 
-categorySelect.addEventListener("change", () => {
-  if (categorySelect.value === "custom") {
-    customInput.style.display = "block";
-    customInput.required = true;
-  } else {
-    customInput.style.display = "none";
-    customInput.required = false;
-  }
-});
+if (categorySelect && customInput) {
+  categorySelect.addEventListener("change", () => {
+    if (categorySelect.value === "custom") {
+      customInput.style.display = "block"
+      customInput.required = true
+    } else {
+      customInput.style.display = "none"
+      customInput.required = false
+      customInput.value = ""
+    }
+  })
+}
 
 // save monthly budget
-saveBudgetBtn.addEventListener("click", function () {
-  const value = parseFloat(budgetInput.value)
+if (saveBudgetBtn) {
+  saveBudgetBtn.addEventListener("click", function () {
+    const value = parseFloat(budgetInput.value)
 
-  if (isNaN(value) || value <= 0) {
-    alert("please enter a valid monthly budget")
-    return
-  }
+    if (isNaN(value) || value <= 0) {
+      alert("please enter a valid monthly budget")
+      return
+    }
 
-  monthlyBudget = value
-  saveBudget()
-  updateBudgetBar()
-})
+    monthlyBudget = value
+    saveBudget()
+    updateBudgetBar()
+  })
+}
 
 // delete one transaction
 function deleteTransaction(id) {
@@ -438,91 +452,102 @@ function deleteTransaction(id) {
 }
 
 // clear all transactions
-clearBtn.addEventListener("click", function () {
-  if (transactions.length === 0) {
-    alert("there are no transactions to clear")
-    return
-  }
-
-  const confirmed = confirm("clear all transactions?")
-  if (!confirmed) return
-
-  transactions = []
-  saveTransactions()
-  refreshUI()
-})
-
-resetBtn.addEventListener("click", function () {
-  const confirmed = confirm("Reset the whole app and remove all saved data?")
-  if (!confirmed) return
-
-  transactions = []
-  monthlyBudget = 0
-  currentTheme = "light"
-  currentFilter = "all"
-
-  localStorage.clear()
-
-  form.reset()
-  searchInput.value = ""
-  budgetInput.value = ""
-  sortInput.value = "newest"
-
-  customInput.style.display = "none"
-  customInput.required = false
-  customInput.value = ""
-
-  filterButtons.forEach(btn => {
-    if (btn.dataset.filter === "all") {
-      btn.classList.add("active")
-    } else {
-      btn.classList.remove("active")
+if (clearBtn) {
+  clearBtn.addEventListener("click", function () {
+    if (transactions.length === 0) {
+      alert("there are no transactions to clear")
+      return
     }
-  })
 
-  applyTheme()
-  refreshUI()
-})
+    const confirmed = confirm("clear all transactions?")
+    if (!confirmed) return
+
+    transactions = []
+    saveTransactions()
+    refreshUI()
+  })
+}
+
+// reset the whole app
+if (resetBtn) {
+  resetBtn.addEventListener("click", function () {
+    const confirmed = confirm("Reset the whole app and remove all saved data?")
+    if (!confirmed) return
+
+    transactions = []
+    monthlyBudget = 0
+    currentTheme = "light"
+    currentFilter = "all"
+
+    localStorage.clear()
+
+    if (form) form.reset()
+    if (searchInput) searchInput.value = ""
+    if (budgetInput) budgetInput.value = ""
+    if (sortInput) sortInput.value = "newest"
+
+    if (customInput) {
+      customInput.style.display = "none"
+      customInput.required = false
+      customInput.value = ""
+    }
+
+    filterButtons.forEach(btn => {
+      if (btn.dataset.filter === "all") {
+        btn.classList.add("active")
+      } else {
+        btn.classList.remove("active")
+      }
+    })
+
+    applyTheme()
+    refreshUI()
+  })
+}
 
 // export data as csv
-exportBtn.addEventListener("click", function () {
-  if (transactions.length === 0) {
-    alert("no data to export")
-    return
-  }
+if (exportBtn) {
+  exportBtn.addEventListener("click", function () {
+    if (transactions.length === 0) {
+      alert("no data to export")
+      return
+    }
 
-  let csv = "description,amount,type,category,date,notes\n"
+    let csv = "description,amount,type,category,date,notes\n"
 
-  transactions.forEach(t => {
-    const row = [
-      `"${t.description}"`,
-      t.amount,
-      `"${t.type}"`,
-      `"${t.category}"`,
-      `"${t.date}"`,
-      `"${t.notes.replace(/"/g, '""')}"`
-    ].join(",")
+    transactions.forEach(t => {
+      const row = [
+        `"${t.description}"`,
+        t.amount,
+        `"${t.type}"`,
+        `"${t.category}"`,
+        `"${t.date}"`,
+        `"${t.notes.replace(/"/g, '""')}"`
+      ].join(",")
 
-    csv += row + "\n"
+      csv += row + "\n"
+    })
+
+    const blob = new Blob([csv], { type: "text/csv" })
+    const url = URL.createObjectURL(blob)
+    const link = document.createElement("a")
+
+    link.href = url
+    link.download = "trackit-data.csv"
+    link.click()
+
+    URL.revokeObjectURL(url)
   })
-
-  const blob = new Blob([csv], { type: "text/csv" })
-  const url = URL.createObjectURL(blob)
-  const link = document.createElement("a")
-
-  link.href = url
-  link.download = "trackit-data.csv"
-  link.click()
-
-  URL.revokeObjectURL(url)
-})
+}
 
 // dark mode toggle
-darkModeBtn.addEventListener("click", function () {
-  currentTheme = currentTheme === "light" ? "dark" : "light"
-  saveTheme()
-  applyTheme()
-})
+if (darkModeBtn) {
+  darkModeBtn.addEventListener("click", function () {
+    currentTheme = currentTheme === "light" ? "dark" : "light"
+    saveTheme()
+    applyTheme()
+  })
+}
 
 // filter buttons
 filterButtons.forEach(button => {
@@ -530,13 +555,25 @@ filterButtons.forEach(button => {
     filterButtons.forEach(btn => btn.classList.remove("active"))
     this.classList.add("active")
     currentFilter = this.dataset.filter
-    renderTransactions()
+
+    if (transactionList) {
+      renderTransactions()
+    }
   })
 })
 
 // search and sort
-searchInput.addEventListener("input", renderTransactions)
-sortInput.addEventListener("change", renderTransactions)
+if (searchInput) {
+  searchInput.addEventListener("input", function () {
+    if (transactionList) renderTransactions()
+  })
+}
+
+if (sortInput) {
+  sortInput.addEventListener("change", function () {
+    if (transactionList) renderTransactions()
+  })
+}
 
 // load app
 applyTheme()
