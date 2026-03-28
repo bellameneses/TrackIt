@@ -211,7 +211,7 @@ function updateStats() {
     }
   }
 
-  topCategoryText.textContent = topCategory
+  topCategoryText.textContent = capitalize(topCategory)
 }
 
 // update insight messages
@@ -452,18 +452,33 @@ clearBtn.addEventListener("click", function () {
   refreshUI()
 })
 
-// reset the whole app
 resetBtn.addEventListener("click", function () {
-  const confirmed = confirm("reset the whole app and remove all saved data?")
+  const confirmed = confirm("Reset the whole app and remove all saved data?")
   if (!confirmed) return
 
   transactions = []
   monthlyBudget = 0
   currentTheme = "light"
+  currentFilter = "all"
 
-  localStorage.removeItem("transactions")
-  localStorage.removeItem("theme")
-  localStorage.removeItem("monthlyBudget")
+  localStorage.clear()
+
+  form.reset()
+  searchInput.value = ""
+  budgetInput.value = ""
+  sortInput.value = "newest"
+
+  customInput.style.display = "none"
+  customInput.required = false
+  customInput.value = ""
+
+  filterButtons.forEach(btn => {
+    if (btn.dataset.filter === "all") {
+      btn.classList.add("active")
+    } else {
+      btn.classList.remove("active")
+    }
+  })
 
   applyTheme()
   refreshUI()
